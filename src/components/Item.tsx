@@ -1,41 +1,53 @@
 import React from "react"
-import { motion } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 import { LoremIpsum } from "react-lorem-ipsum"
 import { Link } from "./Link"
 //import { items } from "../misc/data"
 
 export function Item({ id, data }) {
     const { category, title } = data.find(item => item.id === id)
-
+    //console.log(`Item: card-container-${id}`)
     return (
         <>
             <motion.div
-                initial={{ opacity: 0 }}
+                initial={false}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0, transition: { duration: 0.15 } }}
                 transition={{ duration: 0.2, delay: 0.15 }}
                 style={{ pointerEvents: "auto" }}
                 className="overlay"
+                layout
             >
                 <Link href="/" />
             </motion.div>
+            {/*<AnimatePresence>*/}
             <div className="card-content-container open">
                 <motion.div className="card-content" layoutId={`card-container-${id}`}>
                     <motion.div
                         className="card-image-container"
                         layoutId={`card-image-container-${id}`}
+                        //layout
                     >
                         <img className="card-image" src={`images/${id}.jpg`} alt="" />
                     </motion.div>
-                    <motion.div className="title-container" layoutId={`title-container-${id}`}>
+                    <motion.div
+                        className="title-container"
+                        layoutId={`title-container-${id}`}
+                        //layout
+                    >
                         <span className="category">{category}</span>
                         <h2>{title}</h2>
                     </motion.div>
-                    <motion.div className="content-container" animate>
+                    <motion.div
+                        className="content-container"
+                        animate
+                        //layout
+                    >
                         <LoremIpsum p={6} avgWordsPerSentence={6} avgSentencesPerParagraph={4} />
                     </motion.div>
                 </motion.div>
             </div>
+            {/*</AnimatePresence>*/}
         </>
     )
 }

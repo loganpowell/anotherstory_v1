@@ -1,5 +1,5 @@
 import { $store$ } from "@-0/browser"
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { Cursor } from "@thi.ng/atom"
 //import { log } from "../utils/data"
 
@@ -14,12 +14,13 @@ import { Cursor } from "@thi.ng/atom"
 //
 export const createCursor =
     (atom = $store$) =>
-    (path, uid = `cursor-${Date.now()}`) => {
-        const [state, setState] = useState(null)
-        const cursor = new Cursor(atom, path)
+    (path, uid = `cursor-${Date.now()}`, init = null): [any, Cursor<any>] => {
+        const [state, setState] = useState(init)
+        const cursor = useMemo(() => new Cursor(atom, path), [path])
         cursor.addWatch(uid, (id, bfr, aft) => {
-            //log(`${id} cursor triggered`, { state })
+            console.log(`${uid} cursor triggered:`, { id, bfr, aft })
             setState(aft)
+            cursor.release()
         })
         return [state, cursor]
     }

@@ -11,7 +11,7 @@ export const Link = ({ href, children = "", ...props }) => {
     const me = useRef()
     //console.log("me:", me.current)
     return (
-        <motion.a
+        <a
             //whileHover={{
             //    //textDecoration: 2,
             //    scale: 1.2,
@@ -35,7 +35,7 @@ export const Link = ({ href, children = "", ...props }) => {
             href={href}
         >
             {children}
-        </motion.a>
+        </a>
     )
 }
 

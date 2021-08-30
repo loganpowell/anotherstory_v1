@@ -6,6 +6,7 @@ import { Provider } from "./context"
 import { log$ } from "@-0/browser"
 import { out$ } from "@-0/spool"
 import { trace } from "@thi.ng/rstream"
+import { Flipped } from "react-flip-toolkit"
 //import { BrowserRouter as Router, Route } from "react-router-dom";
 
 // log$.subscribe(trace("log$:"))
@@ -16,9 +17,11 @@ export default function App() {
     return (
         <div className="container">
             <Provider>
+                <Header />
                 <AnimateSharedLayout type="crossfade">
-                    <Header />
+                    {/*<AnimatePresence>*/}
                     <View />
+                    {/*</AnimatePresence>*/}
                 </AnimateSharedLayout>
             </Provider>
         </div>

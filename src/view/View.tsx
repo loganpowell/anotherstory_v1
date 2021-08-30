@@ -1,17 +1,22 @@
-import React, { useContext, useLayoutEffect, useEffect } from "react"
+import React, { useContext, useLayoutEffect, useEffect, useState } from "react"
 import { getIn } from "@thi.ng/paths"
 //import { isFunction } from "@thi.ng/checks"
 import { $store$, API } from "@-0/browser"
+import { isEmpty } from "../utils"
 import { createCursor } from "../hooks"
-import { useState } from "react"
+import { AnimateSharedLayout, AnimatePresence } from "framer-motion"
+import { Flipped, Flipper } from "react-flip-toolkit"
 
-export const DefaultLoader = (
-    <div className="spinner_container" style={{ marginTop: "64px" }}>
-        <div className="spinner">
-            <h1> fetching data... </h1>
+export const DefaultLoader = () => {
+    console.log("loading...")
+    return (
+        <div className="spinner_container" style={{ marginTop: "64px" }}>
+            <div className="spinner">
+                <h1> fetching data... </h1>
+            </div>
         </div>
-    </div>
-)
+    )
+}
 
 // TODO: @-0/react
 //                                                 d8    d8b
@@ -24,31 +29,41 @@ export const DefaultLoader = (
 //
 export const View = ({ store = $store$, Loader = DefaultLoader }) => {
     const useCursor = createCursor(store)
-    //const [LastPage, setLastPage] = useState(() => loader)
-    const [Page, pageCursor] = useCursor([API.$$_VIEW], "View Page")
-    const [loading, loadingCursor] = useCursor([API.$$_LOAD], "View loading")
-    const [path, pathCursor] = useCursor([API.$$_PATH], "Route Path")
+    const [LastPage, setLastPage] = useState(Loader)
+    const [loading, loadingCursor] = useCursor([API._, API.$$_LOAD], "View loading", true)
+    //const [Page, pageCursor] = useCursor([API._, API.$$_VIEW], "View Page")
+    //const [path, pathCursor] = useCursor([API._, API.$$_PATH], "Route Path", [])
 
-    useLayoutEffect(() => {
-        // re-render when loading state changes
-        console.log("re-rendered Page:", { loading })
-        // cleanup
-        return () => {
-            //log("cleaning up:", { loading, Page })
-            loadingCursor.release()
-            pathCursor.release()
-            pageCursor.release()
-        }
-    }, [loadingCursor, pathCursor, pageCursor, Page, loading, path])
+    //useEffect(() => {
+    //    // re-render when loading state changes
+    //    console.log("re-rendered Page:", { loading })
+    //    // cleanup
+    //    return () => {
+    //        //console.log("cleaning up:", { loading })
+    //        loadingCursor.release()
+    //        //pathCursor.release()
+    //        //pageCursor.release()
+    //    }
+    //}, [
+    //    loading, //
+    //    loadingCursor, //
+    //    //path, //
+    //    //pathCursor, //
+    //    //Page, //
+    //    //pageCursor,
+    //])
 
     const state = store.deref()
 
-    //console.log({ state })
+    console.log({ state })
 
-    const is_home = !state[API.$$_PATH].length
+    //const is_home = !path.length
+    const Page = (!loading && getIn(state, [API._, API.$$_VIEW])()) || null
+    const path = (!loading && getIn(state, [API._, API.$$_PATH])) || []
+
     // @ts-ignore
-    const data = is_home ? getIn(state, ["data"]) : getIn(state, path)
-    //console.log({ Page, data })
+    const { _, ...data } = getIn(state, path)
+    //console.log({ Page, data, location: window.location.href })
 
-    return loading || !Page || !data ? Loader : <Page data={data} />
+    return <AnimatePresence>{!loading && <Page data={data} />}</AnimatePresence>
 }

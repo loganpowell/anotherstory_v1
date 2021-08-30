@@ -14,17 +14,18 @@ import { Err_missing_props } from "@-0/utils"
 //import { URL_DATA, URL_PAGE } from "@-0/keys"
 import fetch from "node-fetch"
 import { items } from "../misc/data"
-import { Home } from "../pages"
+import { Home, FocusItem } from "../pages"
 
 export const router = async URL => {
     const match = URL2obj(URL)
     const { DOMN, FURL, HASH, PATH, QERY, SUBD } = match
 
-    console.log({ match })
+    //console.log({ match })
     const { page, data } = new EquivMap([
         [
             { ...match, PATH: [] },
             {
+                // FIXME: needs to be `() => Home` if read from Global store 🤷
                 page: () => Home,
                 data: async () => {
                     return await { data: items }
@@ -34,7 +35,7 @@ export const router = async URL => {
         [
             { ...match, PATH: [], QERY: { id: QERY.id } },
             {
-                page: () => Home,
+                page: () => FocusItem,
                 data: async () => {
                     return await { data: items }
                 },
