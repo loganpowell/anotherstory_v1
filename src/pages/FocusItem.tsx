@@ -11,9 +11,5 @@ export const FocusItem = ({ data: { data } }) => {
 
     //console.log({ QERY })
     const { id } = QERY
-    return (
-        //<AnimatePresence>
-        <Item id={id} data={data} key="item" />
-        //</AnimatePresence>
-    )
+    return <Item id={id} data={data} key="item" />
 }

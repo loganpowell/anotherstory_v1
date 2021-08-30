@@ -18,7 +18,7 @@ export const DefaultLoader = () => {
     )
 }
 
-// TODO: @-0/react
+// TODO: @-0/react figure out how to AnimatePresence...
 //                                                 d8    d8b
 //   e88~~8e  Y88b  /  888-~88e   e88~-_  888-~\ _d88__ !Y88!
 //  d888  88b  Y88b/   888  888b d888   i 888     888    Y8Y
@@ -27,42 +27,20 @@ export const DefaultLoader = () => {
 //   "88___/   /  Y88b 888-_88"   "88_-~  888     "88_/  "8"
 //                     888
 //
-export const View = ({ store = $store$, Loader = DefaultLoader }) => {
+export const View = ({ store = $store$ }) => {
     const useCursor = createCursor(store)
-    const [LastPage, setLastPage] = useState(Loader)
-    const [loading, loadingCursor] = useCursor([API._, API.$$_LOAD], "View loading", true)
-    //const [Page, pageCursor] = useCursor([API._, API.$$_VIEW], "View Page")
-    //const [path, pathCursor] = useCursor([API._, API.$$_PATH], "Route Path", [])
-
-    //useEffect(() => {
-    //    // re-render when loading state changes
-    //    console.log("re-rendered Page:", { loading })
-    //    // cleanup
-    //    return () => {
-    //        //console.log("cleaning up:", { loading })
-    //        loadingCursor.release()
-    //        //pathCursor.release()
-    //        //pageCursor.release()
-    //    }
-    //}, [
-    //    loading, //
-    //    loadingCursor, //
-    //    //path, //
-    //    //pathCursor, //
-    //    //Page, //
-    //    //pageCursor,
-    //])
+    const [loading] = useCursor([API._, API.$$_LOAD], "View loading", true)
 
     const state = store.deref()
 
-    console.log({ state })
+    //console.log({ state })
 
     //const is_home = !path.length
     const Page = (!loading && getIn(state, [API._, API.$$_VIEW])()) || null
     const path = (!loading && getIn(state, [API._, API.$$_PATH])) || []
 
     // @ts-ignore
-    const { _, ...data } = getIn(state, path)
+    const { [API._]: _, ...data } = getIn(state, path)
     //console.log({ Page, data, location: window.location.href })
 
     return <AnimatePresence>{!loading && <Page data={data} />}</AnimatePresence>

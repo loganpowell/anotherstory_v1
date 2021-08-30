@@ -19,9 +19,7 @@ export default function App() {
             <Provider>
                 <Header />
                 <AnimateSharedLayout type="crossfade">
-                    {/*<AnimatePresence>*/}
                     <View />
-                    {/*</AnimatePresence>*/}
                 </AnimateSharedLayout>
             </Provider>
         </div>

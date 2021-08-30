@@ -6,29 +6,26 @@ import { useRef } from "react"
 
 function Card({ id, title, category, theme }) {
     //console.log(`Card: card-container-${id}`)
-    const me = useRef()
+    //const me = useRef()
     return (
         <li className={`card ${theme}`}>
             <div className="card-content-container">
-                <motion.div
-                    className="card-content"
-                    layoutId={`card-container-${id}`}
-                    //exit={{ opacity: 0 }}
-                    //layout
-                    //initial={false}
-                >
+                <motion.div className="card-content" layoutId={`card-container-${id}`}>
                     <motion.div
                         className="card-image-container"
                         layoutId={`card-image-container-${id}`}
-                        //layout
+                        // 🤔 this is needed to trigger magic-move on first route 🤷
+                        exit={{
+                            opacity: 0,
+                        }}
                     >
-                        <img className="card-image" src={`images/${id}.jpg`} alt="" />
+                        <img
+                            className="card-image"
+                            src={process.env.PUBLIC_URL + `images/${id}.jpg`}
+                            alt={`rando ${id}`}
+                        />
                     </motion.div>
-                    <motion.div
-                        className="title-container"
-                        layoutId={`title-container-${id}`}
-                        //layout
-                    >
+                    <motion.div className="title-container" layoutId={`title-container-${id}`}>
                         <span className="category">{category}</span>
                         <h2>{title}</h2>
                     </motion.div>
