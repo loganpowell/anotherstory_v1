@@ -23,21 +23,21 @@ export const router = async URL => {
     //console.log({ match })
     const { page, data } = new EquivMap([
         [
-            { ...match, PATH: [] },
+            { ...match, [!PATH.length && "PATH"]: [] },
             {
                 // FIXME: needs to be `() => Home` if read from Global store 🤷
                 page: () => Home,
                 data: async () => {
-                    return await { data: items }
+                    return await { items }
                 },
             },
         ],
         [
-            { ...match, PATH: [], QERY: { id: QERY.id } },
+            { ...match, [PATH.length === 1 && "PATH"]: PATH },
             {
                 page: () => FocusItem,
                 data: async () => {
-                    return await { data: items }
+                    return await items
                 },
             },
         ],

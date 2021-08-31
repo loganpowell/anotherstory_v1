@@ -123,7 +123,7 @@ li {
 .card-content {
     pointer-events: auto;
     position: relative;
-    border-radius: 20px;
+    /*border-radius: 20px;*/
     background: #1c1c1e;
     overflow: hidden;
     width: 100%;
@@ -164,7 +164,12 @@ li {
     position: absolute;
     top: 15px;
     left: 15px;
-    max-width: 300px;
+    /*max-width: 300px;*/
+}
+
+.title-open {
+    /*font-size: 2rem;*/
+    margin: 0;
 }
 
 .open .title-container {
@@ -179,7 +184,7 @@ h2 {
 
 .category {
     color: #fff;
-    font-size: 14px;
+    /*font-size: 14px;*/
     text-transform: uppercase;
 }
 

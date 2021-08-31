@@ -40,7 +40,7 @@ export const View = ({ store = $store$ }) => {
     const path = (!loading && getIn(state, [API._, API.$$_PATH])) || []
 
     // @ts-ignore
-    const { [API._]: _, ...data } = getIn(state, path)
+    const data = getIn(state, path)
     //console.log({ Page, data, location: window.location.href })
 
     return <AnimatePresence>{!loading && <Page data={data} />}</AnimatePresence>

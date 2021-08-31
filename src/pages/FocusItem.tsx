@@ -4,12 +4,13 @@ import { URL2obj } from "@-0/browser"
 import { CTX } from "../context"
 import { Header, Item, List } from "../components"
 
-export const FocusItem = ({ data: { data } }) => {
+export const FocusItem = ({ data }) => {
+    //console.log({ focusItemData: data })
     //const { user, setUser } = useContext(CTX)
     //const imageHasLoaded = true
-    const { QERY } = URL2obj(window.location.href)
+    const { QERY, PATH } = URL2obj(window.location.href)
 
     //console.log({ QERY })
-    const { id } = QERY
+    const [id] = PATH
     return <Item id={id} data={data} key="item" />
 }

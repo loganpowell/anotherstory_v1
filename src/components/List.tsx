@@ -10,7 +10,11 @@ function Card({ id, title, category, theme }) {
     return (
         <li className={`card ${theme}`}>
             <div className="card-content-container">
-                <motion.div className="card-content" layoutId={`card-container-${id}`}>
+                <motion.div
+                    className="card-content"
+                    layoutId={`card-container-${id}`}
+                    initial={{ borderRadius: 20 }}
+                >
                     <motion.div
                         className="card-image-container"
                         layoutId={`card-image-container-${id}`}
@@ -25,13 +29,21 @@ function Card({ id, title, category, theme }) {
                             alt={`rando ${id}`}
                         />
                     </motion.div>
-                    <motion.div className="title-container" layoutId={`title-container-${id}`}>
+                    <motion.div
+                        className="title-container"
+                        layoutId={`title-container-${id}`}
+                        // half of <Item> size
+                        initial={{
+                            fontSize: "1rem",
+                            maxWidth: "200px",
+                        }}
+                    >
                         <span className="category">{category}</span>
                         <h2>{title}</h2>
                     </motion.div>
                 </motion.div>
             </div>
-            <Link href={`/?id=${id}`} className={`card-open-link`} />
+            <Link href={`/${id}`} className={`card-open-link`} />
         </li>
     )
 }

@@ -4,7 +4,7 @@ import { URL2obj } from "@-0/browser"
 import { CTX } from "../context"
 import { Header, Item, List } from "../components"
 
-export const Home = ({ data: { data } }) => {
+export const Home = ({ data: { items } }) => {
     //const me = useRef()
     //const { user, setUser } = useContext(CTX)
     //const imageHasLoaded = true
@@ -12,5 +12,5 @@ export const Home = ({ data: { data } }) => {
 
     //console.log({ QERY })
     const { id } = QERY
-    return <List key={id} selectedId={id} data={data} />
+    return <List key={id} selectedId={id} data={items} />
 }

@@ -12,18 +12,14 @@ export const Link = ({ href, children = "", ...props }) => {
     //console.log("me:", me.current)
     return (
         <a
-            //whileHover={{
-            //    //textDecoration: 2,
-            //    scale: 1.2,
-            //}}
             ref={me}
             {...props}
             onClick={e => {
                 e.preventDefault()
-                console.log({
-                    e: e.currentTarget.href,
-                    me: me.current,
-                })
+                //console.log({
+                //    e: e.currentTarget.href,
+                //    me: me.current,
+                //})
                 run$.next({
                     ..._NAVIGATE,
                     [API.CMD_ARGS]: {

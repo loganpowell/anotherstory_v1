@@ -5,6 +5,7 @@ import { Link } from "./Link"
 //import { items } from "../misc/data"
 
 export function Item({ id, data }) {
+    //console.log({ itemData: data })
     const { category, title } = data.find(item => item.id === id)
     //console.log(`Item: card-container-${id}`)
     return (
@@ -20,7 +21,13 @@ export function Item({ id, data }) {
                 <Link href="/" />
             </motion.div>
             <div className="card-content-container open">
-                <motion.div className="card-content" layoutId={`card-container-${id}`}>
+                <motion.div
+                    className="card-content"
+                    layoutId={`card-container-${id}`}
+                    initial={{
+                        borderRadius: 20,
+                    }}
+                >
                     <motion.div
                         className="card-image-container"
                         layoutId={`card-image-container-${id}`}
@@ -31,7 +38,15 @@ export function Item({ id, data }) {
                             alt={`rando ${id}`}
                         />
                     </motion.div>
-                    <motion.div className="title-container" layoutId={`title-container-${id}`}>
+                    <motion.div
+                        className="title-container title-open"
+                        layoutId={`title-container-${id}`}
+                        // doubled from <List> size
+                        initial={{
+                            fontSize: "2rem",
+                            maxWidth: "400px",
+                        }}
+                    >
                         <span className="category">{category}</span>
                         <h2>{title}</h2>
                     </motion.div>
