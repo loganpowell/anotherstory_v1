@@ -2,14 +2,16 @@ import React from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { LoremIpsum } from "react-lorem-ipsum"
 import { Link } from "./Link"
+import { Header } from "./Header"
 //import { items } from "../misc/data"
 
 export function Item({ id, data }) {
-    //console.log({ itemData: data })
+    //console.log("Item:", { id, data })
     const { category, title } = data.find(item => item.id === id)
     //console.log(`Item: card-container-${id}`)
     return (
         <>
+            <Header />
             <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -18,7 +20,7 @@ export function Item({ id, data }) {
                 style={{ pointerEvents: "auto" }}
                 className="overlay"
             >
-                <Link href="/" />
+                <Link href="../" />
             </motion.div>
             <div className="card-content-container open">
                 <motion.div
@@ -34,7 +36,7 @@ export function Item({ id, data }) {
                     >
                         <img
                             className="card-image"
-                            src={process.env.PUBLIC_URL + `images/${id}.jpg`}
+                            src={process.env.PUBLIC_URL + `/images/${id}.jpg`}
                             alt={`rando ${id}`}
                         />
                     </motion.div>

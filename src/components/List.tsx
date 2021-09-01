@@ -3,8 +3,9 @@ import React from "react"
 import { Link } from "./Link"
 import { motion, AnimateSharedLayout, AnimatePresence } from "framer-motion"
 import { useRef } from "react"
+import { Header } from "./Header"
 
-function Card({ id, title, category, theme }) {
+export function Card({ id, title, category, theme }) {
     //console.log(`Card: card-container-${id}`)
     //const me = useRef()
     return (
@@ -25,7 +26,7 @@ function Card({ id, title, category, theme }) {
                     >
                         <img
                             className="card-image"
-                            src={process.env.PUBLIC_URL + `images/${id}.jpg`}
+                            src={process.env.PUBLIC_URL + `/images/${id}.jpg`}
                             alt={`rando ${id}`}
                         />
                     </motion.div>
@@ -43,18 +44,7 @@ function Card({ id, title, category, theme }) {
                     </motion.div>
                 </motion.div>
             </div>
-            <Link href={`/${id}`} className={`card-open-link`} />
+            <Link href={`./${id}`} className={`card-open-link`} />
         </li>
-    )
-}
-
-export function List({ selectedId, data, ...props }) {
-    const me = useRef()
-    return (
-        <ul className="card-list">
-            {data.map(card => {
-                return <Card key={card.id} {...card} isSelected={card.id === selectedId} />
-            })}
-        </ul>
     )
 }

@@ -14,31 +14,39 @@ import { Err_missing_props } from "@-0/utils"
 //import { URL_DATA, URL_PAGE } from "@-0/keys"
 import fetch from "node-fetch"
 import { items } from "../misc/data"
-import { Home, FocusItem } from "../pages"
+import { Magic, Move, Stub } from "../pages"
 
 export const router = async URL => {
     const match = URL2obj(URL)
     const { DOMN, FURL, HASH, PATH, QERY, SUBD } = match
 
-    //console.log({ match })
+    const to = PATH.slice(1)[0]
+    window.scrollTo({ top: 0 })
     const { page, data } = new EquivMap([
         [
-            { ...match, [!PATH.length && "PATH"]: [] },
+            { ...match, PATH: [] },
             {
-                // FIXME: needs to be `() => Home` if read from Global store 🤷
-                page: () => Home,
+                page: () => Stub,
                 data: async () => {
+                    // FIXME: weird hack fix
+                    window.scrollTo({ top: 0 })
                     return await { items }
                 },
             },
         ],
         [
-            { ...match, [PATH.length === 1 && "PATH"]: PATH },
+            { ...match, PATH: ["magic-move"] },
             {
-                page: () => FocusItem,
-                data: async () => {
-                    return await items
-                },
+                // FIXME: needs to be `() => Home` if read from Global store 🤷
+                page: () => Magic,
+                data: async () => await items,
+            },
+        ],
+        [
+            { ...match, [PATH.length === 2 && "PATH"]: ["magic-move", to] },
+            {
+                page: () => Move,
+                data: async () => await items,
             },
         ],
     ]).get(match) || {

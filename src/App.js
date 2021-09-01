@@ -17,10 +17,8 @@ export default function App() {
     return (
         <div className="container">
             <Provider>
-                <AnimateSharedLayout type="crossfade">
-                    <Header />
-                    <View />
-                </AnimateSharedLayout>
+                {/*<Header />*/}
+                <View />
             </Provider>
         </div>
     )

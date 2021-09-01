@@ -31,6 +31,10 @@ export const View = ({ store = $store$ }) => {
     const useCursor = createCursor(store)
     const [loading] = useCursor([API._, API.$$_LOAD], "View loading", true)
 
+    console.log("scrollposition:", {
+        x: window.scrollX,
+        y: window.scrollY,
+    })
     const state = store.deref()
 
     //console.log({ state })
@@ -43,5 +47,9 @@ export const View = ({ store = $store$ }) => {
     const data = getIn(state, path)
     //console.log({ Page, data, location: window.location.href })
 
-    return <AnimatePresence>{!loading && <Page data={data} />}</AnimatePresence>
+    return (
+        <AnimateSharedLayout type="crossfade">
+            <AnimatePresence>{!loading && <Page data={data} />}</AnimatePresence>
+        </AnimateSharedLayout>
+    )
 }
