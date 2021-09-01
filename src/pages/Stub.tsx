@@ -1,8 +1,9 @@
 import React from "react"
+import { motion } from "framer-motion"
 import { Link } from "../components"
 
 export const Stub = ({ data }) => (
-    <div style={{}}>
+    <motion.div>
         <pre
             style={{
                 color: "gray",
@@ -11,5 +12,5 @@ export const Stub = ({ data }) => (
             {JSON.stringify(data, null, 4)}
         </pre>
         <Link href="magic-move">Go Somewhere</Link>
-    </div>
+    </motion.div>
 )

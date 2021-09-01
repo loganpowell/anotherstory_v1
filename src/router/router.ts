@@ -20,16 +20,19 @@ export const router = async URL => {
     const match = URL2obj(URL)
     const { DOMN, FURL, HASH, PATH, QERY, SUBD } = match
 
-    const to = PATH.slice(1)[0]
-    window.scrollTo({ top: 0 })
+    const [_1, _2, _3] = PATH
+    // FIXME: weird hack fix for issue
+    //window.scrollTo({ top: 0 })
     const { page, data } = new EquivMap([
         [
             { ...match, PATH: [] },
             {
-                page: () => Stub,
+                page: () => {
+                    //window.scrollTo({ top: 0 })
+                    return Stub
+                },
+
                 data: async () => {
-                    // FIXME: weird hack fix
-                    window.scrollTo({ top: 0 })
                     return await { items }
                 },
             },
@@ -37,13 +40,13 @@ export const router = async URL => {
         [
             { ...match, PATH: ["magic-move"] },
             {
-                // FIXME: needs to be `() => Home` if read from Global store 🤷
+                // 🤔 needs to be `() => Home` if read from Global store 🤷
                 page: () => Magic,
                 data: async () => await items,
             },
         ],
         [
-            { ...match, [PATH.length === 2 && "PATH"]: ["magic-move", to] },
+            { ...match, [PATH.length === 2 && "PATH"]: ["magic-move", _2] },
             {
                 page: () => Move,
                 data: async () => await items,
