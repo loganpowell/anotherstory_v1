@@ -5,12 +5,12 @@ import { Link } from "./Link"
 import { Header } from "./Header"
 //import { items } from "../misc/data"
 
-export function Item({ id, data }) {
+export function Item({ id, data, ...props }) {
     //console.log("Item:", { id, data })
     const { category, title } = data.find(item => item.id === id)
     //console.log(`Item: card-container-${id}`)
     return (
-        <>
+        <div {...props}>
             <Header />
             <motion.div
                 initial={{ opacity: 0 }}
@@ -57,6 +57,6 @@ export function Item({ id, data }) {
                     </motion.div>
                 </motion.div>
             </div>
-        </>
+        </div>
     )
 }

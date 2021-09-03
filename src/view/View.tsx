@@ -49,6 +49,7 @@ export const View = ({ store = $store$ }) => {
 
     return (
         <AnimatePresence
+            exitBeforeEnter
             onExitComplete={() => {
                 console.log("scrollposition before:", getScrollPos())
                 window.scrollTo({ top: 0 })
