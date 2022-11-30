@@ -9,12 +9,12 @@ import {
     DOMnavigated$,
     registerCMD,
 } from "@-0/browser"
-import { __DOM_URL__ROUTE } from "@-0/browser/lib/tasks/routing"
-import { Err_missing_props } from "@-0/utils"
+//import { __DOM_URL__ROUTE } from "@-0/browser/lib/tasks/routing"
+//import { Err_missing_props } from "@-0/utils"
 //import { URL_DATA, URL_PAGE } from "@-0/keys"
 import fetch from "node-fetch"
 import { items } from "../misc/data"
-import { Magic, Move, Stub } from "../pages"
+import { Magic, Move, Stub, Home } from "../pages"
 
 export const router = async URL => {
     const match = URL2obj(URL)
@@ -29,7 +29,7 @@ export const router = async URL => {
             {
                 page: () => {
                     //window.scrollTo({ top: 0 })
-                    return Stub
+                    return Home
                 },
 
                 data: async () => {
